@@ -193,10 +193,17 @@ describe CouchRest::Model::DesignDoc do
               view :by_name
             end
             property :name, String
+
+            def self.reload_design_doc
+              @design_doc = nil
+            end
           end
         KLASS
 
-        class_name.constantize
+        new_model = class_name.constantize
+
+        new_model.reload_design_doc
+        new_model
       }
 
       it "will not update stored design doc if view changed" do
